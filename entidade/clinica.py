@@ -1,9 +1,11 @@
 from datetime import datetime
+
 class Clinica:
-    def __init__(self, nome: str, cidade: str, descricao: str, horario_abertura: time, horario_fechamento: time):
+    def __init__(self, nome: str, cidade: str, descricao: str, horario_abertura: time, horario_fechamento: datetime):
         self.__nome = nome
         self.__cidade = cidade
         self.__descricao = descricao
+        #self.__valida_horarios(horario_abertura, horario_fechamento)
         self.__horario_abertura = horario_abertura
         self.__horario_fechamento = horario_fechamento
         self.__atendimentos= []  #agregação: a clínica reúne seus atendimentos
@@ -37,7 +39,8 @@ class Clinica:
         return self.__horario_abertura
 
     @horario_abertura.setter
-    def horario_abertura(self, horario_abertura: str):
+    def horario_abertura(self, horario_abertura: time):
+        #self.__valida_horarios(horario_abertura, self.__horario_fechamento) validação de horario
         self.__horario_abertura = horario_abertura
 
     @property
@@ -45,5 +48,12 @@ class Clinica:
         return self.__horario_fechamento
 
     @horario_fechamento.setter
-    def horario_fechamento(self, horario_fechamento: str):
+    def horario_fechamento(self, horario_fechamento: time):
+        #self.__valida_horarios(horario_abertura, self.__horario_fechamento)
         self.__horario_fechamento = horario_fechamento
+
+    @property
+    def atendimentos(self):
+        return self.__atendimentos #cópia que evita que alguem altere a lista por fora
+
+    #métodos com o atendimento
