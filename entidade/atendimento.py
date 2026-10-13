@@ -1,7 +1,4 @@
-from datetime import datetime
-from entidade.paciente import Paciente
-from entidade.profissional_da_saude import ProfissionalDaSaude
-from entidade.tipo_atendimento import TipoAtendimento
+import datetime from datetime
 
 class Atendimento:
     def __init__(self, horario_inicio: datetime, horario_fim: datetime, valor: float, tipo_de_atendimento: TipoAtendimento,  paciente: Paciente, profissional: ProfissionalDaSaude):
