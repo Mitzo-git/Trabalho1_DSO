@@ -17,3 +17,10 @@ class Paciente(Pessoa):
         if data_de_nascimento > date.today():
             raise DadoInvalidoException("data_de_nascimento", "a data não pode estar no futuro")
         self.__data_de_nascimento = data_de_nascimento
+
+    def calcula_idade(self):
+        hoje = date.today()
+        idade = hoje.year - self.__data_de_nascimento.year
+        if (hoje.month, hoje.day) < (self.__data_de_nascimento.month, self.__data_de_nascimento.day):
+            idade -= 1
+        return idade
