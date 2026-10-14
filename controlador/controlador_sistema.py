@@ -1,26 +1,26 @@
-from controlador.controlador_paciente import controlador_paciente
-from controlador.controlador_profissional import controlador_profissional
-from controlador.controlador_clinica import controlador_clinica
-from controlador.controlador_tipo_atendimento import controlador_tipo_atendimento
-from controlador.controlador_atendimento import controlador_atendimento
-from controlador.controlador_procedimento import controlador_procedimento
-from controlador.controlador_pagamento import controlador_pagamento
-from controlador.controlador_relatorio import controlador_relatorio
-from tela.tela_sistema import tela_sistema
+from controlador.controlador_paciente import ControladorPaciente
+from controlador.controlador_profissional import ControladorProfissional
+from controlador.controlador_clinica import ControladorClinica
+from controlador.controlador_tipo_atendimento import ControladorTipoAtendimento
+from controlador.controlador_atendimento import ControladorAtendimento
+from controlador.controlador_procedimento import ControladorProcedimento
+from controlador.controlador_pagamento import ControladorPagamento
+from controlador.controlador_relatorio import ControladorRelatorio
+from tela.tela_sistema import TelaSistema
 
 
 class ControladorSistema:
     def __init__(self):
-        self.__tela = tela_sistema()
+        self.__tela = TelaSistema()
 
-        self.__controlador_paciente = controlador_paciente(self)
-        self.__controlador_profissional = controlador_profissional(self)
-        self.__controlador_clinica = controlador_clinica(self)
-        self.__controlador_tipo_atendimento = controlador_tipo_atendimento(self)
-        self.__controlador_atendimento = controlador_atendimento(self)
-        self.__controlador_procedimento = controlador_procedimento(self)
-        self.__controlador_pagamento = controlador_pagamento(self)
-        self.__controlador_relatorio = controlador_relatorio(self)
+        self.__controlador_paciente = ControladorPaciente(self)
+        self.__controlador_profissional = ControladorProfissional(self)
+        self.__controlador_clinica = ControladorClinica(self)
+        self.__controlador_tipo_atendimento = ControladorTipoAtendimento(self)
+        self.__controlador_atendimento = ControladorAtendimento(self)
+        self.__controlador_procedimento = ControladorProcedimento(self)
+        self.__controlador_pagamento = ControladorPagamento(self)
+        self.__controlador_relatorio = ControladorRelatorio(self)
 
     @property
     def controlador_paciente(self):
