@@ -1,4 +1,5 @@
 from datetime import datetime
+from datetime import time
 
 class Clinica:
     def __init__(self, nome: str, cidade: str, descricao: str, horario_abertura: time, horario_fechamento: datetime):

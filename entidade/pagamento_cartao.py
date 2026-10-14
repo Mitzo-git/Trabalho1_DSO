@@ -25,3 +25,4 @@ class PagamentoCartao(Pagamento):
 
     @bandeira.setter
     def bandeira(self, bandeira):
+        self.__bandeira = bandeira

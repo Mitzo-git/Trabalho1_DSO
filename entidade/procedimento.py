@@ -28,4 +28,4 @@ class Procedimento:
 
     @profissional.setter
     def profissional(self, profissional: ProfissionalDaSaude):
-        return self.__profissional = profissional
+        self.__profissional = profissional
