@@ -68,7 +68,7 @@ class ControladorAtendimento:
 
         return paciente, profissional, clinica, tipo
 
-    # regras de negócio
+    # ---------- regras de negócio ----------
     def __valida_regras(self, paciente, clinica, inicio, fim, valor):
         if fim <= inicio:
             raise DadoInvalidoException("O horário de fim deve ser depois do início")
@@ -84,7 +84,6 @@ class ControladorAtendimento:
                 or fim.time() > clinica.horario_fechamento):
             raise ForaDoHorarioException(clinica.horario_abertura, clinica.horario_fechamento)
 
-    # CRUD
     def incluir(self):
         dados = self.__tela.pega_dados()
         try:
