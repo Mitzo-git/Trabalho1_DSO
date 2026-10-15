@@ -4,6 +4,7 @@ from tela.tela_paciente import TelaPaciente
 from exceptions.paciente_ja_cadastrado_exception import PacienteJaCadastradoException
 from exceptions.paciente_nao_encontrado_exception import PacienteNaoEncontradoException
 from exceptions.dado_invalido_exception import DadoInvalidoException
+from exceptions.paciente_com_atendimento_exception import PacienteComAtendimentoException
 
 
 class ControladorPaciente:
@@ -70,6 +71,10 @@ class ControladorPaciente:
                 PacienteJaCadastradoException) as e:
             self.__tela.mostra_mensagem(str(e))
 
+    def __tem_atendimentos(self, paciente):
+        atendimentos = self.__controlador_sistema.controlador_atendimento.atendimentos
+        return any(a.paciente is paciente for a in atendimentos)
+
     def excluir(self):
         self.listar()
         cpf = self.__tela.seleciona()
@@ -77,9 +82,11 @@ class ControladorPaciente:
             paciente = self.pega_paciente_por_cpf(cpf)
             if paciente is None:
                 raise PacienteNaoEncontradoException()
+            if self.__tem_atendimentos(paciente):
+                raise PacienteComAtendimentoException()
             self.__pacientes.remove(paciente)
             self.__tela.mostra_mensagem("Paciente excluído com sucesso")
-        except PacienteNaoEncontradoException as e:
+        except (PacienteNaoEncontradoException, PacienteComAtendimentoException) as e:
             self.__tela.mostra_mensagem(str(e))
 
     def listar(self):

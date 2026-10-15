@@ -54,7 +54,7 @@ class Clinica:
 
     @property
     def atendimentos(self):
-        return self.__atendimentos #cópia que evita que alguem altere a lista por fora
+        return list(self.__atendimentos) #cópia que evita que alguem altere a lista por fora
 
     def adiciona_atendimento(self, atendimento):
         if atendimento not in self.__atendimentos:

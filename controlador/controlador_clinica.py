@@ -84,8 +84,7 @@ class ControladorClinica:
             clinica.nome = dados["nome"].strip()
             clinica.cidade = dados["cidade"].strip()
             clinica.descricao = dados["descricao"].strip()
-            clinica.horario_abertura = dados["horario_abertura"]
-            clinica.horario_fechamento = dados["horario_fechamento"]
+            clinica.altera_horarios(dados["horario_abertura"], dados["horario_fechamento"])
             self.__tela.mostra_mensagem("Clínica alterada com sucesso")
         except excecoes_clinica as e:
             self.__tela.mostra_mensagem(str(e))

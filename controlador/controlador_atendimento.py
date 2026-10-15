@@ -9,6 +9,7 @@ from exceptions.atendimento_nao_encontrado_exception import AtendimentoNaoEncont
 from exceptions.paciente_menor_de_idade_exception import PacienteMenorDeIdadeException
 from exceptions.fora_do_horario_exception import ForaDoHorarioException
 from exceptions.atendimento_com_pagamento_exception import AtendimentoComPagamentoException
+from exceptions.valor_total_menor_que_pago_exception import ValorTotalMenorQuePagoException
 
 idade_minima = 18
 
@@ -22,6 +23,7 @@ excecoes_atendimento = (
     PacienteMenorDeIdadeException,
     ForaDoHorarioException,
     AtendimentoComPagamentoException,
+    ValorTotalMenorQuePagoException,
 )
 
 class ControladorAtendimento:
@@ -108,6 +110,10 @@ class ControladorAtendimento:
             paciente, profissional, clinica, tipo = self.__busca_participantes(dados)
             self.__valida_regras(paciente, clinica, dados["horario_inicio"],
                                  dados["horario_fim"], dados["valor"])
+
+            # o novo total (valor base + procedimentos) não pode ficar abaixo do que já foi pago
+            novo_total = dados["valor"] + sum(p.custo for p in atendimento.procedimentos)
+            self.__controlador_sistema.controlador_pagamento.valida_novo_total(atendimento, novo_total)
 
             if atendimento.clinica is not clinica:
                 atendimento.clinica.remove_atendimento(atendimento)
