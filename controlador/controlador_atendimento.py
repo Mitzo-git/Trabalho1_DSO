@@ -8,6 +8,7 @@ from exceptions.tipo_atendimento_nao_encontrado_exception import TipoAtendimento
 from exceptions.atendimento_nao_encontrado_exception import AtendimentoNaoEncontradoException
 from exceptions.paciente_menor_de_idade_exception import PacienteMenorDeIdadeException
 from exceptions.fora_do_horario_exception import ForaDoHorarioException
+from exceptions.atendimento_com_pagamento_exception import AtendimentoComPagamentoException
 
 idade_minima = 18
 
@@ -20,6 +21,7 @@ excecoes_atendimento = (
     AtendimentoNaoEncontradoException,
     PacienteMenorDeIdadeException,
     ForaDoHorarioException,
+    AtendimentoComPagamentoException,
 )
 
 class ControladorAtendimento:
@@ -115,8 +117,7 @@ class ControladorAtendimento:
             atendimento.paciente = paciente
             atendimento.profissional = profissional
             atendimento.tipo_de_atendimento = tipo
-            atendimento.horario_inicio = dados["horario_inicio"]
-            atendimento.horario_fim = dados["horario_fim"]
+            atendimento.altera_horarios(dados["horario_inicio"], dados["horario_fim"])
             atendimento.valor = dados["valor"]
             self.__tela.mostra_mensagem("Atendimento alterado com sucesso")
         except excecoes_atendimento as e:
@@ -125,6 +126,11 @@ class ControladorAtendimento:
     def excluir(self):
         try:
             atendimento = self.seleciona_atendimento()
+
+            pagamentos = self.__controlador_sistema.controlador_pagamento.pega_pagamentos_do_atendimento(atendimento)
+            if len(pagamentos) > 0:
+                raise AtendimentoComPagamentoException()
+
             atendimento.clinica.remove_atendimento(atendimento)
             self.__atendimentos.remove(atendimento)
             self.__tela.mostra_mensagem("Atendimento excluído com sucesso")

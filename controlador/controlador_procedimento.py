@@ -91,7 +91,7 @@ class ControladorProcedimento:
             self.__valida_dados(dados)
             profissional = self.__busca_profissional(dados["cpf_profissional"])
 
-            novo_total = atendimento.calcular_valor_total() - procedimento.custo + dados["custo"]
+            novo_total = atendimento.valor_total() - procedimento.custo + dados["custo"]
             self.__controlador_sistema.controlador_pagamento.valida_novo_total(atendimento, novo_total)
 
             procedimento.descricao = dados["descricao"].strip()
@@ -106,7 +106,7 @@ class ControladorProcedimento:
             atendimento = self.__controlador_sistema.controlador_atendimento.seleciona_atendimento()
             procedimento = self.__seleciona_procedimento(atendimento)
 
-            novo_total = atendimento.calcular_valor_total() - procedimento.custo
+            novo_total = atendimento.valor_total() - procedimento.custo
             self.__controlador_sistema.controlador_pagamento.valida_novo_total(atendimento, novo_total)
 
             atendimento.remove_procedimento(procedimento)

@@ -57,10 +57,10 @@ class Clinica:
         return self.__atendimentos #cópia que evita que alguem altere a lista por fora
 
     def adiciona_atendimento(self, atendimento):
-        if atendimento in self.__atendimentos:
+        if atendimento not in self.__atendimentos:
             self.__atendimentos.append(atendimento)
 
-    def remove_atendimentos(self, atendimentos):
+    def remove_atendimento(self, atendimentos):
         if atendimentos in self.__atendimentos:
             self.__atendimentos.remove(atendimentos)
 

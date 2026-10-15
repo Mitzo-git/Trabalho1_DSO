@@ -17,6 +17,7 @@ excecoes_pagamento = (
     PagamentoAposAtendimentoException,
     ValorExcedeRestanteException,
     AtendimentoQuitadoException,
+    ValorTotalMenorQuePagoException,
 )
 
 
@@ -36,7 +37,7 @@ class ControladorPagamento:
     def valor_restante(self, atendimento, ignorar=None) -> float:
         pago = sum(p.valor_pago for p in self.__pagamentos
                    if p.atendimento is atendimento and p is not ignorar)
-        return round(atendimento.calcular_valor_total() - pago, 2)
+        return round(atendimento.valor_total() - pago, 2)
 
     def valida_novo_total(self, atendimento, novo_total: float):
         total_pago = sum(p.valor_pago for p in self.pega_pagamentos_do_atendimento(atendimento))
@@ -45,7 +46,7 @@ class ControladorPagamento:
 
     def __resumo(self, atendimento) -> dict:
         restante = self.valor_restante(atendimento)
-        total = atendimento.calcular_valor_total()
+        total = atendimento.valor_total()
         return {"valor_total": total,
                 "valor_pago": round(total - restante, 2),
                 "valor_restante": restante}
@@ -73,12 +74,12 @@ class ControladorPagamento:
                 raise DadoInvalidoException("A bandeira do cartão não pode ser vazia")
 
     def __cria_pagamento(self, dados: dict, atendimento):
-        comuns = (dados["data"], atendimento.calcular_valor_total(), dados["valor_pago"],
+        comuns = (dados["data"], atendimento.valor_total(), dados["valor_pago"],
                   atendimento, atendimento.paciente)
         if dados["forma"] == "pix":
             return PagamentoPix(dados["cpf_pagador"], *comuns)
         if dados["forma"] == "cartao":
-            return PagamentoCartao(int(dados["numero_cartao"]), dados["bandeira"].strip(), *comuns)
+            return PagamentoCartao(str(dados["numero_cartao"]), dados["bandeira"].strip(), *comuns)
         return PagamentoDinheiro(*comuns)
 
     def __seleciona_pagamento(self):

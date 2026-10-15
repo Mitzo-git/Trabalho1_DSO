@@ -24,3 +24,7 @@ class PagamentoPix(Pagamento):
         if len(numeros) != 11 or not numeros.isdigit():
             raise DadoInvalidoException('O CPF deve ter 11 números')
         self.__cpf_pagador = numeros
+
+    @property
+    def forma(self):
+        return "PIX"

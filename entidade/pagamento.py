@@ -80,3 +80,7 @@ class Pagamento(ABC):
                 raise DadoInvalidoException('Os valores devem ser números maiores ou iguais a zero')
         if pago > total:
             raise DadoInvalidoException('O valor pago não pode ser maior que o valor total')
+
+    @abstractmethod
+    def forma(self):
+        pass

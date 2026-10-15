@@ -3,11 +3,12 @@ from entidade.tipo_atendimento import TipoAtendimento
 from entidade.paciente import Paciente
 from entidade.profissional_da_saude import ProfissionalDaSaude
 from entidade.procedimento import Procedimento
+from entidade.clinica import Clinica
 from exceptions.dado_invalido_exception import DadoInvalidoException
 
 
 class Atendimento:
-    def __init__(self, horario_inicio: datetime, horario_fim: datetime, valor: float,tipo_de_atendimento: TipoAtendimento, paciente: Paciente,profissional: ProfissionalDaSaude):
+    def __init__(self, horario_inicio: datetime, horario_fim: datetime, valor: float,tipo_de_atendimento: TipoAtendimento, paciente: Paciente,profissional: ProfissionalDaSaude, clinica: Clinica):
 
         self.__horario_inicio = horario_inicio
         self.__horario_fim = horario_fim
@@ -15,6 +16,7 @@ class Atendimento:
         self.__tipo_de_atendimento = tipo_de_atendimento
         self.__paciente = paciente
         self.__profissional = profissional
+        self.__clinica = clinica
         self.__procedimentos = []  #composição: o atendimento cria seus procedimentos
 
     # ---------- horários ----------
@@ -74,6 +76,16 @@ class Atendimento:
         if not isinstance(profissional, ProfissionalDaSaude):
             raise DadoInvalidoException('Profissional inválido')
         self.__profissional = profissional
+
+    @property
+    def clinica(self):
+        return self.__clinica
+
+    @clinica.setter
+    def clinica(self, clinica: Clinica):
+        if not isinstance(clinica, Clinica):
+            raise DadoInvalidoException('Clinica inválida')
+        self.__clinica = clinica
 
     # ---------- procedimentos (composição) ----------
     @property
