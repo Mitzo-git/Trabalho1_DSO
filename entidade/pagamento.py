@@ -51,4 +51,3 @@ class Pagamento(ABC):
     @paciente.setter
     def paciente(self, paciente: Paciente):
         self.__paciente = paciente
-

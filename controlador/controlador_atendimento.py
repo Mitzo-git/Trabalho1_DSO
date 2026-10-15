@@ -46,7 +46,6 @@ class ControladorAtendimento:
             raise AtendimentoNaoEncontradoException()
         return atendimento
 
-    # associação: pede os objetos aos outros controladores
     def __busca_participantes(self, dados: dict):
         sistema = self.__controlador_sistema
 
@@ -68,7 +67,7 @@ class ControladorAtendimento:
 
         return paciente, profissional, clinica, tipo
 
-    # ---------- regras de negócio ----------
+
     def __valida_regras(self, paciente, clinica, inicio, fim, valor):
         if fim <= inicio:
             raise DadoInvalidoException("O horário de fim deve ser depois do início")
@@ -84,7 +83,6 @@ class ControladorAtendimento:
                 or fim.time() > clinica.horario_fechamento):
             raise ForaDoHorarioException(clinica.horario_abertura, clinica.horario_fechamento)
 
-    # ---------- CRUD ----------
     def incluir(self):
         dados = self.__tela.pega_dados()
         try:

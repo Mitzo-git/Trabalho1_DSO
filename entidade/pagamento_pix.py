@@ -15,3 +15,7 @@ class PagamentoPix(Pagamento):
     @cpf_pagador.setter
     def cpf_pagador(self, cpf_pagador: str):
         self.__cpf_pagador = cpf_pagador
+
+    @property
+    def forma(self):
+        return "PIX"

@@ -26,3 +26,7 @@ class PagamentoCartao(Pagamento):
     @bandeira.setter
     def bandeira(self, bandeira):
         self.__bandeira = bandeira
+
+    @property
+    def forma(self):
+        return "Cartão de crédito"
