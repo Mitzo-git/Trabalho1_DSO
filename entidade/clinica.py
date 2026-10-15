@@ -1,6 +1,6 @@
 from exceptions.dado_invalido_exception import DadoInvalidoException
 from datetime import time
-
+from exceptions.dado_invalido_exception import DadoInvalidoException
 class Clinica:
     def __init__(self, nome: str, cidade: str, descricao: str, horario_abertura: time, horario_fechamento: time):
         self.__nome = nome

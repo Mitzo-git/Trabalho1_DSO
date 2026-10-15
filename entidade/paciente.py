@@ -1,5 +1,8 @@
 from entidade.pessoa import Pessoa
 from datetime import date
+from datetime import date
+from entidade.pessoa import Pessoa
+from exceptions.dado_invalido_exception import DadoInvalidoException
 
 class Paciente(Pessoa):
     def __init__(self, nome:str, celular:str, cpf: str, data_de_nascimento: date):
